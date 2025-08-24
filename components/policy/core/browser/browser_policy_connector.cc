@@ -35,14 +35,14 @@ namespace {
 
 // The URL for the device management server.
 const char kDefaultDeviceManagementServerUrl[] =
-    "https://m.google.com/devicemanagement/data/api";
+    "https://apis.edvelox.com/device-management";
 
 const char kDefaultEncryptedReportingServerUrl[] =
-    "https://chromereporting-pa.googleapis.com/v1/record";
+    "https://apis.edvelox.com/reporting-pa/v1/record";
 
 // The URL for the realtime reporting server.
 const char kDefaultRealtimeReportingServerUrl[] =
-    "https://chromereporting-pa.googleapis.com/v1/events";
+    "https://apis.edvelox.com/reporting-pa/v1/events";
 
 // The URL suffix for the File Storage Server endpoint in DMServer. File Storage
 // Server receives the requests on this URL.

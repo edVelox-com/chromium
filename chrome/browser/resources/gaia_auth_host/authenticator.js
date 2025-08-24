@@ -263,6 +263,7 @@ function extractDomain(url) {
  */
 const messageHandlers = {
   'attemptLogin'(msg) {
+    console.warn('>>> attemptLogin:', msg.email);
     this.setEmail_(msg.email);
     if (this.authMode === AuthMode.DESKTOP) {
       this.password_ = msg.password;
@@ -290,6 +291,7 @@ const messageHandlers = {
     this.dispatchEvent(new CustomEvent('menuItemClicked', {detail: msg.item}));
   },
   'identifierEntered'(msg) {
+    console.warn('>>> identifierEntered:', msg.accountIdentifier);
     this.setEmail_(msg.accountIdentifier);
     this.dispatchEvent(new CustomEvent(
         'identifierEntered',
@@ -934,6 +936,7 @@ export class Authenticator extends EventTarget {
         const headers = details.responseHeaders;
         for (let i = 0; headers && i < headers.length; ++i) {
           if (headers[i].name.toLowerCase() === EMBEDDED_FORM_HEADER) {
+            console.warn(`>>> onRequestCompleted_ from: ${currentUrl} with header:`, JSON.stringify(headers[i]));
             isEmbeddedPage = true;
             break;
           }
@@ -1015,6 +1018,7 @@ export class Authenticator extends EventTarget {
       const header = headers[i];
       const headerName = header.name.toLowerCase();
       if (headerName === SIGN_IN_HEADER) {
+        console.warn(`>>> onHeadersReceived_ from: ${currentUrl} with header:`, JSON.stringify(header));
         const headerValues = header.value.toLowerCase().split(',');
         const signinDetails = {};
         headerValues.forEach(function(e) {
@@ -1062,6 +1066,7 @@ export class Authenticator extends EventTarget {
     if (!this.isGaiaMessage_(e)) {
       return;
     }
+    console.warn(`>>> onMessageFromWebview_ from: ${e.origin} with msg:`, JSON.stringify(e.data));
 
     const msg = e.data;
     if (msg.method in messageHandlers) {
@@ -1091,6 +1096,7 @@ export class Authenticator extends EventTarget {
       payload = messageType;
     }
 
+    console.warn(`>>> sendMessageToWebview to: ${currentUrl} with payload:`, JSON.stringify(payload));
     this.webview_.contentWindow.postMessage(payload, currentUrl);
   }
 
@@ -1575,6 +1581,7 @@ export class Authenticator extends EventTarget {
    * @private
    */
   setEmail_(email) {
+    console.warn('>>> setEmail_:', email);
     this.email_ = email;
     this.samlHandler_.email = email;
   }

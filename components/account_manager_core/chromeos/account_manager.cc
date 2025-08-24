@@ -765,6 +765,7 @@ void AccountManager::CheckDummyGaiaTokenForAllAccounts(
 void AccountManager::GetTokenHash(
     const ::account_manager::AccountKey& account_key,
     base::OnceCallback<void(const std::string&)> callback) {
+  LOG(WARNING) << ">>> GetTokenHash_: " << account_key;
   DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
   DCHECK_NE(init_state_, InitializationState::kNotStarted);
 

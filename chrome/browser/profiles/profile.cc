@@ -591,3 +591,8 @@ std::string Profile::ToDebugString() {
 
   return out.str();
 }
+
+std::ostream& operator<<(std::ostream& out, const Profile& profile) {
+  out << const_cast<Profile&>(profile).ToDebugString();
+  return out;
+}

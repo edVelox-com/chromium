@@ -89,6 +89,7 @@ LegacyTokenHandleFetcher::LegacyTokenHandleFetcher(
 LegacyTokenHandleFetcher::~LegacyTokenHandleFetcher() = default;
 
 void LegacyTokenHandleFetcher::BackfillToken(TokenFetchingCallback callback) {
+  LOG(WARNING) << ">>> BackfillToken. account_id: " << account_id_;
   callback_ = std::move(callback);
 
   if (account_id_.GetAccountType() != AccountType::GOOGLE) {
@@ -172,15 +173,19 @@ void LegacyTokenHandleFetcher::FillForAccessToken(
 }
 
 void LegacyTokenHandleFetcher::OnOAuthError() {
+  LOG(WARNING) << ">>> OnOAuthError. account_id: " << account_id_;
   std::move(callback_).Run(account_id_, false);
 }
 
 void LegacyTokenHandleFetcher::OnNetworkError(int response_code) {
+  LOG(WARNING) << ">>> OnNetworkError. account_id: " << account_id_;
   std::move(callback_).Run(account_id_, false);
 }
 
 void LegacyTokenHandleFetcher::OnGetTokenInfoResponse(
     const base::Value::Dict& token_info) {
+  LOG(WARNING) << ">>> OnGetTokenInfoResponse. account_id: " << account_id_
+             << " token_info: " << token_info;
   bool success = false;
   if (!token_info.Find("error")) {
     const std::string* handle = token_info.FindString("token_handle");
@@ -198,6 +203,8 @@ void LegacyTokenHandleFetcher::OnGetTokenInfoResponse(
 
 void LegacyTokenHandleFetcher::StoreTokenHandleMapping(
     const std::string& token_handle) {
+  LOG(WARNING) << ">>> StoreTokenHandleMapping. token_handle: " << token_handle
+             << " refresh_token_hash_: " << refresh_token_hash_;
   PrefService* prefs = profile_->GetPrefs();
   ScopedDictPrefUpdate update(prefs, kTokenHandleMap);
   CHECK(!refresh_token_hash_.empty());

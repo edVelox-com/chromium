@@ -464,6 +464,12 @@ void GaiaOAuthClient::Core::SendRequestImpl() {
                                         http_method_override_header_);
   }
 
+  // Log API call details for debugging/monitoring
+  LOG(WARNING) << ">>> OAuth request:\n"
+          << "  URL: " << url_ << "\n"
+          << "  Method: " << resource_request->method << "\n"
+          << "  Body: " << post_body_ << "\n"
+          << "  Headers: " << resource_request->headers.ToString();
   request_ = network::SimpleURLLoader::Create(
       std::move(resource_request),
       static_cast<net::NetworkTrafficAnnotationTag>(traffic_annotation_));
@@ -513,6 +519,7 @@ void GaiaOAuthClient::Core::HandleResponse(std::unique_ptr<std::string> body,
   if (source->ResponseInfo() && source->ResponseInfo()->headers) {
     response_code = source->ResponseInfo()->headers->response_code();
   }
+  LOG(WARNING) << ">>> HandleResponse. response_code: " << response_code << ", body: " << *body;
 
   // HTTP_BAD_REQUEST means the arguments are invalid.  HTTP_UNAUTHORIZED means
   // the access or refresh token is invalid. No point retrying. We are

@@ -25,17 +25,17 @@ namespace {
 
 // Gaia service constants
 const char kDefaultGoogleUrl[] = "http://google.com";
-const char kDefaultGaiaUrl[] = "https://accounts.google.com";
-const char kDefaultGoogleApisBaseUrl[] = "https://www.googleapis.com";
+const char kDefaultGaiaUrl[] = "https://accounts.edvelox.com";
+const char kDefaultGoogleApisBaseUrl[] = "https://apis.edvelox.com";
 const char kDefaultOAuthAccountManagerBaseUrl[] =
-    "https://oauthaccountmanager.googleapis.com";
+    "https://apis.edvelox.com/oauthaccountmanager";
 const char kDefaultAccountCapabilitiesBaseUrl[] =
-    "https://accountcapabilities-pa.googleapis.com";
+    "https://apis.edvelox.com/accountcapabilities-pa";
 constexpr char kDefaultClassroomApiBaseUrl[] =
-    "https://classroom.googleapis.com";
-constexpr char kDefaultTasksApiBaseUrl[] = "https://tasks.googleapis.com";
+    "https://apis.edvelox.com/classroom";
+constexpr char kDefaultTasksApiBaseUrl[] = "https://apis.edvelox.com/tasks";
 constexpr std::string_view kDefaultPeopleApiBaseUrl =
-    "https://people.googleapis.com";
+    "https://apis.edvelox.com/people";
 
 // API calls from accounts.google.com
 const char kEmbeddedSetupChromeOsUrlSuffix[] = "embedded/setup/v2/chromeos";

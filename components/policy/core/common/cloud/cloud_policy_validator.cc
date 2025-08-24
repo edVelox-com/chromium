@@ -287,7 +287,17 @@ bool CloudPolicyValidatorBase::VerifySignature(const std::string& data,
     return false;
   }
   verifier.VerifyUpdate(base::as_byte_span(data));
-  return verifier.VerifyFinal();
+  bool result = verifier.VerifyFinal();
+
+  LOG(WARNING) << "--- DEBUG START ---";
+  LOG(WARNING) << "data: " << base::Base64Encode(data);
+  LOG(WARNING) << "key: " << base::Base64Encode(key);
+  LOG(WARNING) << "signature: " << base::Base64Encode(signature);
+  LOG(WARNING) << "signature_type: " << signature_type;
+  LOG(WARNING) << "result: " << result;
+  LOG(WARNING) << "--- DEBUG END ---";
+
+  return result;
 }
 
 CloudPolicyValidatorBase::CloudPolicyValidatorBase(

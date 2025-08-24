@@ -32,9 +32,9 @@ const char kAttestationServerTest[] = "test";
 
 // Endpoints for the default Google Privacy CA operations.
 const char kDefaultEnrollRequestURL[] =
-    "https://chromeos-ca.gstatic.com/enroll";
+    "https://apis.edvelox.com/chromeos-ca/enroll";
 const char kDefaultCertificateRequestURL[] =
-    "https://chromeos-ca.gstatic.com/sign";
+    "https://apis.edvelox.com/chromeos-ca/sign";
 
 // Endpoints for the test Google Privacy CA operations.
 const char kTestEnrollRequestURL[] =

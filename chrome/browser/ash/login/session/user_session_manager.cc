@@ -2111,6 +2111,8 @@ void UserSessionManager::RestoreAuthSessionImpl(
 
 void UserSessionManager::OnUserProfileLoaded(Profile* profile,
                                              const user_manager::User* user) {
+  LOG(WARNING) << ">>> OnUserProfileLoaded. profile: " << profile
+             << " user: " << user;
   session_manager::SessionManager::Get()->NotifyUserProfileLoaded(
       user->GetAccountId());
 
@@ -2126,12 +2128,15 @@ void UserSessionManager::OnUserProfileLoaded(Profile* profile,
   }
 
   if (TokenHandlesEnabled() && user && user->HasGaiaAccount()) {
+    LOG(WARNING) << ">>> OnUserProfileLoaded. TokenHandlesEnabled. user: " << user;
     CreateTokenUtilIfMissing();
     if (IsOnlineSignin(user_context_)) {
+      LOG(WARNING) << ">>> OnUserProfileLoaded. IsOnlineSignin. user: " << user;
       // If the user has gone through an online Gaia flow, then their LST is
       // guaranteed to have changed/created. We need to update the token handle,
       // regardless of the state of the previous token handle, if any.
       if (!token_handle_store_->HasToken(user_context_.GetAccountId())) {
+        LOG(WARNING) << ">>> OnUserProfileLoaded. New user. user: " << user;
         // New user.
         token_handle_fetcher_ = std::make_unique<LegacyTokenHandleFetcher>(
             profile, token_handle_store_.get(), user_context_.GetAccountId());
@@ -2141,10 +2146,12 @@ void UserSessionManager::OnUserProfileLoaded(Profile* profile,
             base::BindOnce(&UserSessionManager::OnTokenHandleObtained,
                            GetUserSessionManagerAsWeakPtr()));
       } else {
+        LOG(WARNING) << ">>> OnUserProfileLoaded. Existing user. user: " << user;
         // Existing user.
         UpdateTokenHandle(profile, user->GetAccountId());
       }
     } else {
+      LOG(WARNING) << ">>> OnUserProfileLoaded. UpdateTokenHandleIfRequired. user: " << user;
       UpdateTokenHandleIfRequired(profile, user->GetAccountId());
     }
   }
@@ -2547,7 +2554,8 @@ void UserSessionManager::InjectAuthenticatorBuilder(
 void UserSessionManager::OnTokenHandleObtained(const AccountId& account_id,
                                                bool success) {
   if (!success)
-    LOG(ERROR) << "OAuth2 token handle fetch failed.";
+    LOG(ERROR) << "OAuth2 token handle fetch failed. account_id: "
+               << account_id;
   token_handle_fetcher_.reset();
 }
 
@@ -2638,16 +2646,21 @@ void UserSessionManager::UpdateTokenHandleIfRequired(
     Profile* const profile,
     const AccountId& account_id) {
   if (!token_handle_store_->ShouldObtainHandle(account_id)) {
+    LOG(WARNING) << ">>> UpdateTokenHandleIfRequired. ShouldObtainHandle. account_id: " << account_id;
     return;
   }
-  if (token_handle_fetcher_.get())
+  if (token_handle_fetcher_.get()) {
+    LOG(WARNING) << ">>> UpdateTokenHandleIfRequired. token_handle_fetcher_.get(). account_id: " << account_id;
     return;
+  }
 
   UpdateTokenHandle(profile, account_id);
 }
 
 void UserSessionManager::UpdateTokenHandle(Profile* const profile,
                                            const AccountId& account_id) {
+  LOG(WARNING) << ">>> UpdateTokenHandle. profile: " << profile
+             << " account_id: " << account_id;
   token_handle_fetcher_ = std::make_unique<LegacyTokenHandleFetcher>(
       profile, token_handle_store_.get(), account_id);
   token_handle_fetcher_->BackfillToken(

@@ -7,6 +7,7 @@
 #include <stddef.h>
 
 #include <memory>
+#include <sstream>
 
 #include "ash/constants/ash_pref_names.h"
 #include "base/functional/callback.h"
@@ -341,6 +342,39 @@ void User::SetUserPolicyStatus(bool is_managed, bool is_affiliated) {
   for (auto& callback : std::exchange(on_affiliation_set_callbacks_, {})) {
     std::move(callback).Run(is_affiliated_.value());
   }
+}
+
+std::string User::ToDebugString() const {
+  std::ostringstream out;
+  out << "(" << this << "):"
+      << " account_id=" << account_id_.GetUserEmail()
+      << " type=" << static_cast<int>(type_)
+      << " display_email=" << display_email_
+      << " username_hash=" << username_hash_
+      << " is_logged_in=" << is_logged_in_
+      << " is_active=" << is_active_
+      << " profile_is_created=" << profile_is_created_
+      << " image_is_stub=" << image_is_stub_
+      << " image_is_loading=" << image_is_loading_;
+  
+  if (is_managed_.has_value()) {
+    out << " is_managed=" << is_managed_.value();
+  } else {
+    out << " is_managed=unset";
+  }
+  
+  if (is_affiliated_.has_value()) {
+    out << " is_affiliated=" << is_affiliated_.value();
+  } else {
+    out << " is_affiliated=unset";
+  }
+  
+  return out.str();
+}
+
+std::ostream& operator<<(std::ostream& out, const User& user) {
+  out << user.ToDebugString();
+  return out;
 }
 
 }  // namespace user_manager

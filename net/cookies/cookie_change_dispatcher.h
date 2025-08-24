@@ -65,6 +65,14 @@ NET_EXPORT const char* CookieChangeCauseToString(CookieChangeCause cause);
 // This function assumes that ChangeCause::EXPLICIT is a reason for deletion.
 NET_EXPORT bool CookieChangeCauseIsDeletion(CookieChangeCause cause);
 
+// Stream operator to allow logging CookieChangeInfo with LOG(INFO) << change_info;
+inline std::ostream& operator<<(std::ostream& os, const CookieChangeInfo& change_info) {
+  os << "CookieChangeInfo{ cookie=";
+  PrintTo(change_info.cookie, &os);
+  os << ", cause=" << CookieChangeCauseToString(change_info.cause) << " }";
+  return os;
+}
+
 // Called when a cookie is changed in a CookieStore.
 //
 // Receives the CanonicalCookie which was added to or removed from the store,

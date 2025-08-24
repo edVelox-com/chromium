@@ -287,6 +287,7 @@ void GaiaCookieRetriever::RetrieveCookies(
 }
 
 void GaiaCookieRetriever::OnCookieChange(const net::CookieChangeInfo& change) {
+  LOG(WARNING) << "OnCookieChange: " << change;
   if (on_cookie_retrieved_callback_.has_value() &&
       on_cookie_retrieved_callback_.value()) {
     RetrieveCookies(std::move(on_cookie_retrieved_callback_.value()));
@@ -302,6 +303,7 @@ void GaiaCookieRetriever::OnCookieWaitTimeout() {
 void GaiaCookieRetriever::OnGetCookieListResponse(
     const net::CookieAccessResultList& cookies,
     const net::CookieAccessResultList& excluded_cookies) {
+  LOG(WARNING) << "OnGetCookieListResponse: " << net::CanonicalCookie::BuildCookieLine(cookies);
   login::GaiaCookiesData cookie_data;
   for (const auto& cookie_with_access_result : cookies) {
     const auto& cookie = cookie_with_access_result.cookie;

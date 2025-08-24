@@ -199,6 +199,9 @@ class USER_MANAGER_EXPORT User {
 
   void AddProfileCreatedObserver(base::OnceClosure on_profile_created);
 
+  // Returns debug information as a string.
+  std::string ToDebugString() const;
+
  private:
   friend class UserManagerImpl;
   friend class chromeos::SupervisedUserManagerImpl;
@@ -331,6 +334,9 @@ class USER_MANAGER_EXPORT User {
   std::vector<base::OnceCallback<void(bool is_affiliated)>>
       on_affiliation_set_callbacks_;
 };
+
+// Stream output operator for debugging.
+std::ostream& operator<<(std::ostream& out, const User& user);
 
 // List of known users.
 using UserList = std::vector<raw_ptr<User, VectorExperimental>>;

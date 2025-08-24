@@ -571,6 +571,9 @@ struct ProfileCompare {
   bool operator()(Profile* a, Profile* b) const;
 };
 
+// Stream output operator for debugging.
+std::ostream& operator<<(std::ostream& out, const Profile& profile);
+
 std::ostream& operator<<(std::ostream& out,
                          const Profile::OTRProfileID& profile_id);
 
