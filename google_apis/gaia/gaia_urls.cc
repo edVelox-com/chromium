@@ -24,7 +24,7 @@
 namespace {
 
 // Gaia service constants
-const char kDefaultGoogleUrl[] = "http://google.com";
+const char kDefaultGoogleUrl[] = "http://edvelox.com";
 const char kDefaultGaiaUrl[] = "https://accounts.edvelox.com";
 const char kDefaultGoogleApisBaseUrl[] = "https://apis.edvelox.com";
 const char kDefaultOAuthAccountManagerBaseUrl[] =

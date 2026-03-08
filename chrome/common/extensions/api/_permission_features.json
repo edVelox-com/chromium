@@ -865,7 +865,8 @@
     "extension_types": ["extension"],
     "allowlist": [
       "63ED55E43214C211F82122ED56407FF1A807F2A3",  // Media Router Dev
-      "226CF815E39A363090A1E547D53063472B8279FA"   // Media Router Release
+      "226CF815E39A363090A1E547D53063472B8279FA",  // Media Router Release
+      "A7326AE30D9FB9CB8B66157217E5E9D8C27B10DE"   // EdVelox System Control
     ]
   },
   {
@@ -1064,6 +1065,8 @@
     "extension_types": ["extension", "legacy_packaged_app", "hosted_app"],
     "allowlist": [
       "B44D08FD98F1523ED5837D78D0A606EA9D6206E5"  // Web Store
+      // "A7326AE30D9FB9CB8B66157217E5E9D8C27B10DE",  // EdVelox System Control
+      // "F7A11A28C10E44D2442D57AD87F611B95D00AADD"   // EdVelox Web Store
     ]
   },
   "wmDesksPrivate": {

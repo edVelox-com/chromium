@@ -5,6 +5,7 @@
 #include "chrome/browser/extensions/external_component_loader.h"
 
 #include "base/memory/scoped_refptr.h"
+#include "base/strings/stringprintf.h"
 #include "base/values.h"
 #include "build/branding_buildflags.h"
 #include "build/build_config.h"
@@ -27,6 +28,31 @@
 #include "chrome/browser/profiles/profile_manager.h"
 #include "chromeos/constants/chromeos_features.h"
 #endif
+
+namespace {
+
+  void AddEdveloxExtensions(base::Value::Dict& prefs) {
+    const char update_url_template[] = "%s/update/%s/updates.xml";
+
+    std::vector<std::string> preinstalled_apps = {
+      "jiglnlncanngpcaojdhndfdjhhahioif", // EdVelox System Control
+      "bbkjhkmkhmdlbmihdjendfblnfplmlgh", // EdVelox Android Settings
+      "egkkaiaghkohncclcaidchfkhgdnioho", // EdVelox Web Store
+      "nlmbflcancnknakgniokalppbhaolldb", // EdVelox Rhythm
+      // "hmkfokikkjpbhimnabaigddpocahfild", // EdVelox RDP
+    };
+
+    // https://store.edvelox.com/update/jiglnlncanngpcaojdhndfdjhhahioif/updates.xml
+    const std::string base_update_url = "https://store.edvelox.com";
+    std::string update_url;
+    for (const auto& app_id : preinstalled_apps) {
+      update_url = base::StringPrintf(update_url_template,
+          base_update_url.c_str(), app_id.c_str());
+      prefs.SetByDottedPath(app_id + ".external_update_url", update_url);
+    }
+  }
+  
+  }  // namespace
 
 namespace extensions {
 
@@ -61,6 +87,7 @@ void ExternalComponentLoader::StartLoading() {
   }
 #endif
 
+  AddEdveloxExtensions(prefs);
   LoadFinished(std::move(prefs));
 }
 

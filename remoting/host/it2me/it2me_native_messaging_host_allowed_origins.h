@@ -13,6 +13,9 @@ namespace remoting {
 // remoting/host/it2me/com.google.chrome.remote_assistance.json.jinja2
 // to keep the two lists in sync.
 inline constexpr const char* kIt2MeOrigins[] = {
+    // EdVelox OS Remote Desktop extension id
+    "chrome-extension://pfbfflpalabehhglnknmdiedbljogabd/",
+
     "chrome-extension://inomeogfingihgjfjlpeplalcfajhgai/",
     "chrome-extension://hpodccmdligbeohchckkeajbfohibipg/"};
 
