@@ -48,7 +48,7 @@ const int kTokenValidationPeriodMinutesDefault = 60 * 24;
 base::TimeDelta GetTimeToLive(const std::string& sender_id) {
   // This magic value is identical to kPolicyFCMInvalidationSenderID, i.e. the
   // value that ChromeOS policy uses for its invalidations.
-  if (sender_id == "1013309121859") {
+  if (sender_id == "967531710764") {
     if (!base::FeatureList::IsEnabled(switches::kPolicyInstanceIDTokenTTL)) {
       return base::TimeDelta();
     }
@@ -126,7 +126,7 @@ void RecordFCMMessageStatus(InvalidationParsingStatus status,
   // aren't accessible here (they're defined in higher layers), so we simply
   // duplicate them here, strictly only for the purpose of metrics.
   constexpr char kDriveFcmSenderId[] = "947318989803";
-  constexpr char kPolicyFCMInvalidationSenderID[] = "1013309121859";
+  constexpr char kPolicyFCMInvalidationSenderID[] = "967531710764";
   if (sender_id == kDriveFcmSenderId) {
     UMA_HISTOGRAM_ENUMERATION("FCMInvalidations.FCMMessageStatus.Drive",
                               status);

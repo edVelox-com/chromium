@@ -12,12 +12,12 @@ namespace invalidation {
 // Google Cloud Project number to register with FM
 // (go/device-cloud-gcp#fcm-related-projects). Should be used for critical
 // invalidations.
-inline constexpr int64_t kCriticalInvalidationsProjectNumber = 585406161706;
+inline constexpr int64_t kCriticalInvalidationsProjectNumber = 967531710764;
 
 // Google Cloud Project project number to register with FM
 // (go/device-cloud-gcp#fcm-related-projects). Should be used for less important
 // invalidations.
-inline constexpr int64_t kNonCriticalInvalidationsProjectNumber = 245350905893;
+inline constexpr int64_t kNonCriticalInvalidationsProjectNumber = 967531710764;
 
 }  // namespace invalidation
 

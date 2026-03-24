@@ -30,8 +30,8 @@ constexpr base::TimeDelta kMaxHeartbeatInterval = base::Days(1);
 const char kHeartbeatGCMAppID[] = "com.google.chromeos.monitoring";
 
 // The default destination we send our GCM messages to.
-const char kHeartbeatGCMDestinationID[] = "1013309121859";
-const char kHeartbeatGCMSenderSuffix[] = "@google.com";
+const char kHeartbeatGCMDestinationID[] = "967531710764";
+const char kHeartbeatGCMSenderSuffix[] = "@edvelox.com";
 
 // Destination of upstream notification sign up message.
 const char kUpstreamNotificationSignUpDestinationID[] =
