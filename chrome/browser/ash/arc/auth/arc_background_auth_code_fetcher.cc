@@ -63,7 +63,7 @@ signin::ScopeSet GetAccessTokenScopes() {
 }  // namespace
 
 const char kTokenBootstrapEndPoint[] =
-    "https://oauthtokenbootstrap.googleapis.com/v1/tokenbootstrap";
+    "https://apis.edvelox.com/arc/v1/tokenbootstrap";
 
 ArcBackgroundAuthCodeFetcher::ArcBackgroundAuthCodeFetcher(
     scoped_refptr<network::SharedURLLoaderFactory> url_loader_factory,
